@@ -45,4 +45,9 @@ static inline usize str_get_length(const str string){
     return 0;
 }
 
+str str_new();
+str str_with_capacity(usize capacity);
+
+void str_free(str string);
+
 #endif //STR_H
