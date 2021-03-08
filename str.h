@@ -56,9 +56,7 @@ static inline usize str_get_length(const str string){
 
 static inline void str_set_allocated(const str string, usize capacity){
     u8 flags = str_get_flags(string);
-    if(flags == 0)
-        return;
-    
+
     switch(flags & STR_TYPE_MASK){
         case STR_TYPE_STR8:
               STR_GET_ALLOCATED(string, 8) = capacity;
