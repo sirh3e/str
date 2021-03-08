@@ -13,6 +13,7 @@ typedef char*   str;
 #define STR_TYPE_MASK 7
 
 #define STR_GET(string, type) ((struct str##type *)((string)-(sizeof(struct str##type))))
+#define STR_GET_ALLOCATED(string, type) (STR_GET(string, type)->buffer_allocated)
 #define STR_GET_LENGTH(string, type) (STR_GET(string, type)->buffer_length)
 
 struct __attribute__ ((__packed__)) str8{
@@ -21,6 +22,17 @@ struct __attribute__ ((__packed__)) str8{
     u8 flags;
     char buffer[];
 };
+
+static inline usize str_get_allocated(const str string){
+    u8 flags = string[-1];
+
+    switch(flags & STR_TYPE_MASK){
+        case STR_TYPE_STR8:
+            return STR_GET_ALLOCATED(string, 8);
+    }
+
+    return 0;
+}
 
 static inline usize str_get_length(const str string){
     u8 flags = string[-1];
