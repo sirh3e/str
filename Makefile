@@ -6,7 +6,7 @@ CFLAGS	+= -pipe
 CFLAGS	+= -fasynchronous-unwind-tables -fexceptions
 CFLAGS	+= -D_FORTIFY_SOURCE=2 
 
-SRC		:= str.c
+SRC		:= str.c str.h
 SRC		+= tests.c
 
 TESTS	:= tests
