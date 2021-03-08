@@ -2,6 +2,7 @@
 #define STR_H
 
 #include<sys/types.h>
+#include<stdlib.h>
 #include<stdint.h>
 
 typedef uint8_t u8;
@@ -23,8 +24,16 @@ struct __attribute__ ((__packed__)) str8{
     char buffer[];
 };
 
+static inline u8 str_get_flags(const str string){
+    return string == NULL : 0 ? string[-1];
+}
+
+static inline u8 str_get_type(const str string){
+    return str_get_flags(string) & STR_TYPE_MASK;
+}
+
 static inline usize str_get_allocated(const str string){
-    u8 flags = string[-1];
+    u8 flags = str_get_flags(string);
 
     switch(flags & STR_TYPE_MASK){
         case STR_TYPE_STR8:
@@ -35,7 +44,7 @@ static inline usize str_get_allocated(const str string){
 }
 
 static inline usize str_get_length(const str string){
-    u8 flags = string[-1];
+    u8 flags = str_get_flags(string);
 
     switch(flags & STR_TYPE_MASK){
         case STR_TYPE_STR8:
@@ -45,7 +54,19 @@ static inline usize str_get_length(const str string){
     return 0;
 }
 
-str str_new();
+static inline void str_set_allocated(const str string, usize capacity){
+    u8 flags = str_get_flags(string);
+    if(flags == 0)
+        return;
+    
+    switch(flags & STR_TYPE_MASK){
+        case STR_TYPE_STR8:
+              STR_GET_ALLOCATED(string, 8) = capacity;
+              break;
+    }
+}
+
+str str_new(u8 type);
 str str_with_capacity(usize capacity);
 
 void str_free(str string);
