@@ -4,6 +4,7 @@
 #include<sys/types.h>
 #include<stdlib.h>
 #include<stdint.h>
+#include <stdio.h>
 
 typedef uint8_t u8;
 typedef size_t  usize;
@@ -32,8 +33,12 @@ static inline void str_set_flags(str string, u8 flags){
     STR_GET(string, 8)->flags = flags;
 }
 
-static inline u8 str_get_type(str string){
+static inline u8 str_get_type(const str string){
     return str_get_flags(string) & STR_TYPE_MASK;
+}
+
+static inline void str_set_type(str string, u8 type){
+    STR_GET(string, 8)->flags |= type & STR_TYPE_MASK;
 }
 
 static inline usize str_get_allocated(const str string){
@@ -73,7 +78,7 @@ static inline void str_set_allocated(str string, usize capacity){
 
     switch(type){
         case STR_TYPE_STR8:
-              STR_GET_ALLOCATED(string, 8) = capacity;
+              STR_GET(string, 8)->buffer_allocated = capacity;
               break;
     }
 }

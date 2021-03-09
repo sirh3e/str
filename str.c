@@ -36,15 +36,15 @@ str str_with_capacity(usize capacity){
     usize malloc_size = struct_size + string_size;
 
     void *ptr;
-    if((ptr = str_malloc(malloc_size)) == NULL){
+    if((ptr = malloc(malloc_size)) == NULL){
         exit(1);
     }
 
     memset(ptr, 0, malloc_size);
     string = (str)ptr+struct_size;
 
+    str_set_type(string, struct_type);
     str_set_allocated(string, string_size);
-    str_set_flags(string, struct_type);
 
     return string;
 }
