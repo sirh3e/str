@@ -16,7 +16,7 @@ typedef char*   str;
 
 #define STR_GET(string, type) ((struct str##type *)((string)-(sizeof(struct str##type))))
 #define STR_ALLOCATED(string, type) (STR_GET(string, type)->allocated)
-#define STR_GET_LENGTH(string, type) (STR_GET(string, type)->length)
+#define STR_LENGTH(string, type) (STR_GET(string, type)->length)
 
 struct __attribute__ ((__packed__)) str8{
     u8 allocated;
@@ -75,7 +75,7 @@ static inline usize str_get_length(const str string){
 
     switch(type){
         case STR_TYPE_STR8:
-            return STR_GET_LENGTH(string, 8);
+            return STR_LENGTH(string, 8);
     }
 
     return 0;
