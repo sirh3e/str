@@ -78,7 +78,7 @@ static inline void str_set_allocated(str string, usize capacity){
     }
 }
 
-str str_new(u8 type);
+str str_from(const char* source_string);
 str str_with_capacity(usize capacity);
 
 void str_free(str string);
