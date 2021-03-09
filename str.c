@@ -36,7 +36,7 @@ str str_with_capacity(usize capacity){
     usize malloc_size = struct_size + string_size;
 
     void *ptr;
-    if((ptr = malloc(malloc_size)) == NULL){
+    if((ptr = str_malloc(malloc_size)) == NULL){
         exit(1);
     }
 
