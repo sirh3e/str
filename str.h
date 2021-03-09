@@ -14,9 +14,9 @@ typedef char*   str;
 #define STR_TYPE_STR8 1
 #define STR_TYPE_MASK 7
 
-#define STR_GET(string, type) ((struct str##type *)((string)-(sizeof(struct str##type))))
-#define STR_ALLOCATED(string, type) (STR_GET(string, type)->allocated)
-#define STR_LENGTH(string, type) (STR_GET(string, type)->length)
+#define STR(string, type) ((struct str##type *)((string)-(sizeof(struct str##type))))
+#define STR_ALLOCATED(string, type) (STR(string, type)->allocated)
+#define STR_LENGTH(string, type) (STR(string, type)->length)
 
 struct __attribute__ ((__packed__)) str8{
     u8 allocated;
@@ -30,7 +30,7 @@ static inline u8 str_get_flags(const str string){
 }
 
 static inline void str_set_flags(str string, u8 flags){
-    STR_GET(string, 8)->flags = flags;
+    STR(string, 8)->flags = flags;
 }
 
 static inline u8 str_get_type(const str string){
@@ -38,7 +38,7 @@ static inline u8 str_get_type(const str string){
 }
 
 static inline void str_set_type(str string, u8 type){
-    STR_GET(string, 8)->flags |= type & STR_TYPE_MASK;
+    STR(string, 8)->flags |= type & STR_TYPE_MASK;
 }
 
 static inline usize str_get_struct_size(u8 type){
@@ -65,7 +65,7 @@ static inline void str_set_allocated(str string, usize capacity){
 
     switch(type){
         case STR_TYPE_STR8:
-            STR_GET(string, 8)->allocated = capacity;
+            STR(string, 8)->allocated = capacity;
             break;
     }
 }
@@ -86,7 +86,7 @@ static inline void str_set_length(str string, usize length){
 
     switch(type){
         case STR_TYPE_STR8:
-            STR_GET(string, 8)->length = length;
+            STR(string, 8)->length = length;
             break;
     }
 }
