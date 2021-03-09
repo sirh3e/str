@@ -3,14 +3,6 @@
 
 #include<string.h>
 
-static inline usize str_get_struct_size(u8 type){
-    switch(type){
-        case STR_TYPE_STR8:
-            return sizeof(struct str8);
-    }
-    return 0;
-}
-
 str str_from(const char *source_string){
     usize string_length = strlen(source_string);
 

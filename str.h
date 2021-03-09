@@ -41,6 +41,14 @@ static inline void str_set_type(str string, u8 type){
     STR_GET(string, 8)->flags |= type & STR_TYPE_MASK;
 }
 
+static inline usize str_get_struct_size(u8 type){
+    switch(type){
+        case STR_TYPE_STR8:
+            return sizeof(struct str8);
+    }
+    return 0;
+}
+
 static inline usize str_get_allocated(const str string){
     u8 type = str_get_type(string);
 
