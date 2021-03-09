@@ -17,6 +17,7 @@ typedef char*   str;
 #define STR(string, type) ((struct str##type *)((string)-(sizeof(struct str##type))))
 #define STR_ALLOCATED(string, type) (STR(string, type)->allocated)
 #define STR_LENGTH(string, type) (STR(string, type)->length)
+#define STR_FLAGS(string, type) (STR(string, type)->flags)
 
 struct __attribute__ ((__packed__)) str8{
     u8 allocated;
