@@ -15,6 +15,7 @@ typedef char*   str;
 #define STR_TYPE_MASK 7
 
 #define STR(string, type) ((struct str##type *)((string)-(sizeof(struct str##type))))
+
 #define STR_ALLOCATED(string, type) (STR(string, type)->allocated)
 #define STR_LENGTH(string, type) (STR(string, type)->length)
 #define STR_FLAGS(string, type) (STR(string, type)->flags)
@@ -66,7 +67,7 @@ static inline void str_set_allocated(str string, usize capacity){
 
     switch(type){
         case STR_TYPE_STR8:
-            STR(string, 8)->allocated = capacity;
+            STR_ALLOCATED(string, 8) = capacity;
             break;
     }
 }
