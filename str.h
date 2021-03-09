@@ -25,17 +25,21 @@ struct __attribute__ ((__packed__)) str8{
 };
 
 static inline u8 str_get_flags(const str string){
-    return string == NULL : 0 ? string[-1];
+    return string == NULL ? 0 : string[-1];
 }
 
-static inline u8 str_get_type(const str string){
+static inline void str_set_flags(str string, u8 flags){
+    STR_GET(string, 8)->flags = flags;
+}
+
+static inline u8 str_get_type(str string){
     return str_get_flags(string) & STR_TYPE_MASK;
 }
 
 static inline usize str_get_allocated(const str string){
-    u8 flags = str_get_flags(string);
+    u8 type = str_get_type(string);
 
-    switch(flags & STR_TYPE_MASK){
+    switch(type){
         case STR_TYPE_STR8:
             return STR_GET_ALLOCATED(string, 8);
     }
@@ -44,9 +48,9 @@ static inline usize str_get_allocated(const str string){
 }
 
 static inline usize str_get_length(const str string){
-    u8 flags = str_get_flags(string);
+    u8 type = str_get_type(string);
 
-    switch(flags & STR_TYPE_MASK){
+    switch(type){
         case STR_TYPE_STR8:
             return STR_GET_LENGTH(string, 8);
     }
@@ -54,10 +58,20 @@ static inline usize str_get_length(const str string){
     return 0;
 }
 
-static inline void str_set_allocated(const str string, usize capacity){
-    u8 flags = str_get_flags(string);
+static inline void str_set_length(str string, usize length){
+    u8 type = str_get_type(string);
 
-    switch(flags & STR_TYPE_MASK){
+    switch(type){
+        case STR_TYPE_STR8:
+            STR_GET(string, 8)->buffer_length = length;
+            break;
+    }
+}
+
+static inline void str_set_allocated(str string, usize capacity){
+    u8 type = str_get_type(string);
+
+    switch(type){
         case STR_TYPE_STR8:
               STR_GET_ALLOCATED(string, 8) = capacity;
               break;

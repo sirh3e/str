@@ -3,7 +3,7 @@
 
 #include<string.h>
 
-static inline usize str_get_type_size(u8 type){
+static inline usize str_get_struct_size(u8 type){
     switch(type){
         case STR_TYPE_STR8:
             return sizeof(struct str8);
@@ -12,21 +12,29 @@ static inline usize str_get_type_size(u8 type){
 }
 
 str str_with_capacity(usize capacity){
-    capacity += 1;
 
-    str string = NULL;
-    usize type_size = str_get_type_size(STR_TYPE_STR8); //ToDo change it make it dynamic
-    usize size = capacity * sizeof(char) + type_size;
+    str string;
+    str name = "marvin";
+    usize name_length = strlen(name);
+    u8 struct_type = STR_TYPE_STR8;
+    usize struct_size = str_get_struct_size(struct_type);
+    usize string_size = sizeof(char) * capacity + 1;
+    usize malloc_size = struct_size + string_size;
 
-    void* ptr;
-    if((ptr = (void*)str_malloc(size)) == NULL){
-        //ToDo null handling
+    void *ptr;
+    if((ptr = str_malloc(malloc_size)) == NULL){
+        exit(1);
     }
-    
-    memset(ptr, 0, size); 
-    string = (char*)ptr+type_size;
 
-    str_set_allocated(string, capacity);
+    memset(ptr, 0, malloc_size);
+    string = (str)ptr+struct_size;
+
+    memcpy(string, name, name_length);
+    string[name_length] = '\0';
+
+    str_set_allocated(string, string_size);
+    str_set_length(string, name_length);
+    str_set_flags(string, struct_type);
 
     return string;
 }
