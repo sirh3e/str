@@ -35,12 +35,16 @@ static inline void str_set_flags(str string, u8 flags){
     STR_FLAGS(string, 8) = flags;
 }
 
+static inline void str_apply_flags(str string, u8 flags){
+    STR_FLAGS(string, 8) |= flags;
+}
+
 static inline u8 str_get_type(const str string){
     return str_get_flags(string) & STR_TYPE_MASK;
 }
 
 static inline void str_set_type(str string, u8 type){
-    STR_FLAGS(string, 8) |= type & STR_TYPE_MASK;
+    str_apply_flags(string, type & STR_TYPE_MASK);
 }
 
 static inline usize str_get_struct_size(u8 type){
