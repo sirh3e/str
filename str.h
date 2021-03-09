@@ -87,7 +87,7 @@ static inline void str_set_length(str string, usize length){
 
     switch(type){
         case STR_TYPE_STR8:
-            STR(string, 8)->length = length;
+            STR_LENGTH(string, 8) = length;
             break;
     }
 }
