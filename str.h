@@ -32,7 +32,7 @@ static inline u8 str_get_flags(const str string){
 }
 
 static inline void str_set_flags(str string, u8 flags){
-    STR(string, 8)->flags = flags;
+    STR_FLAGS(string, 8) = flags;
 }
 
 static inline u8 str_get_type(const str string){
@@ -40,7 +40,7 @@ static inline u8 str_get_type(const str string){
 }
 
 static inline void str_set_type(str string, u8 type){
-    STR(string, 8)->flags |= type & STR_TYPE_MASK;
+    STR_FLAGS(string, 8) |= type & STR_TYPE_MASK;
 }
 
 static inline usize str_get_struct_size(u8 type){
