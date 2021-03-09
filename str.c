@@ -1,7 +1,7 @@
 #include "str.h"
 #include "strlib.h"
 
-#include<string.h>
+#include <string.h>
 
 str str_from(const char *source_string){
     usize string_length = strlen(source_string);
