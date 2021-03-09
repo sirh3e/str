@@ -52,6 +52,16 @@ static inline usize str_get_allocated(const str string){
     return 0;
 }
 
+static inline void str_set_allocated(str string, usize capacity){
+    u8 type = str_get_type(string);
+
+    switch(type){
+        case STR_TYPE_STR8:
+            STR_GET(string, 8)->buffer_allocated = capacity;
+            break;
+    }
+}
+
 static inline usize str_get_length(const str string){
     u8 type = str_get_type(string);
 
@@ -70,16 +80,6 @@ static inline void str_set_length(str string, usize length){
         case STR_TYPE_STR8:
             STR_GET(string, 8)->buffer_length = length;
             break;
-    }
-}
-
-static inline void str_set_allocated(str string, usize capacity){
-    u8 type = str_get_type(string);
-
-    switch(type){
-        case STR_TYPE_STR8:
-              STR_GET(string, 8)->buffer_allocated = capacity;
-              break;
     }
 }
 
