@@ -1,10 +1,10 @@
 #ifndef STR_H
 #define STR_H
 
-#include <sys/types.h>
-#include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
 
 typedef uint8_t u8;
 typedef size_t  usize;
