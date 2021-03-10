@@ -7,12 +7,19 @@
 #define ASSERT(expression) \
     assert(expression)
 
-bool helper_is_char_boundry(str self, usize index);
+int helper_is_char_boundry(str self, usize index);
 
-bool helper_is_char_boundry(str self, usize index){
+int helper_is_char_boundry(str self, usize index){
     ASSERT(self);
 
     return index <= str_get_length(self);
+}
+
+void str_clear(str self){
+    ASSERT(self);
+    
+    memset(self, 0, str_get_length(self));
+    str_set_length(self, 0);
 }
 
 str str_drain(str self, usize index_min, usize index_max){
@@ -48,19 +55,6 @@ void str_insert_str(str self, usize index, str string){
     ASSERT(helper_is_char_boundry(self, index + str_get_length(string)));
 
     memcpy(self + index, string, str_get_length(string));
-}
-
-int str_is_empty(const str self){
-    ASSERT(self);
-    
-    return str_get_length(self) == 0;
-}
-
-void str_clear(str self){
-    ASSERT(self);
-    
-    memset(self, 0, str_get_length(self));
-    str_set_length(self, 0);
 }
 
 int str_is_empty(const str self){
