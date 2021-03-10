@@ -102,7 +102,7 @@ str str_drain(str self, usize min_index, usize max_index);
 str str_from(const char* string);
 void str_insert(str self, usize index, char c);
 void str_insert_str(str self, usize index, str string);
-int str_is_empty(str self);
+int str_is_empty(const str self);
 str str_new();
 char str_pop(str self);
 void str_push(str self, char c);

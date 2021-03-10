@@ -10,6 +10,11 @@ void str_clear(str self){
     str_set_length(self, 0);
 }
 
+int str_is_empty(const str self){
+    //ToDo handle null
+    return str_get_length(self) == 0;
+}
+
 str str_from(const char *string){
     usize string_length = strlen(string);
 
