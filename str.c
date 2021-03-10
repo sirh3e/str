@@ -41,6 +41,17 @@ str str_drain(str self, usize index_min, usize index_max){
     return string;
 }
 
+str str_from(const char *string){
+    ASSERT(string);
+    
+    str self;
+    usize string_length = strlen(string);
+    if((self = str_new(string, string_length)) == NULL){
+        ASSERT(self);
+    }
+    return self;
+}
+
 void str_insert(str self, usize index, char c){
     ASSERT(self);
     ASSERT(helper_is_char_boundry(self, index));
@@ -77,17 +88,6 @@ str str_new(const char* string, usize length){
 
     str_set_length(self, length);
 
-    return self;
-}
-
-str str_from(const char *string){
-    ASSERT(string);
-    
-    str self;
-    usize string_length = strlen(string);
-    if((self = str_new(string, string_length)) == NULL){
-        ASSERT(self);
-    }
     return self;
 }
 
