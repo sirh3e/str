@@ -91,6 +91,18 @@ str str_new(const char* string, usize length){
     return self;
 }
 
+char str_pop(str self){
+    ASSERT(self);
+    
+    usize length = str_get_length(self);
+    char c = self[length];
+    
+    self[length - 1] = '\0';
+    str_set_length(self, length - 1);
+
+    return c;
+}
+
 str str_with_capacity(usize capacity){
 
     str self;
