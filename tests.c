@@ -10,7 +10,7 @@
                 expression ? STR_TEST_COLOR_GREEN : STR_TEST_COLOR_RED,	        \
                 expression ? "PASSED" : "FAILED", STR_TEST_COLOR_REST,          \
                 __FILE__, __func__, __LINE__,                                   \
-                message								\
+                message                                                         \
             )
 
 #define TEST_ASSERT(expression) \
@@ -19,16 +19,16 @@
 int main(int argc, char** argv){
 
     usize capacity = 127;
-    str string;
-    if((string = str_with_capacity(capacity)) == NULL){
-        exit(1);
-    }
-    TEST_ASSERT(string != NULL);
+    str string = str_with_capacity(capacity); 
+    
+    TEST_ASSERT(string);
     TEST_ASSERT(str_get_capacity(string) == capacity + 1);
     TEST_ASSERT(str_get_length(string) == 0);
     TEST_ASSERT(str_get_flags(string) == (STR_TYPE_STR8 & STR_TYPE_MASK));
 
     str_clear(string);
+
+    TEST_ASSERT(string);
     TEST_ASSERT(str_get_capacity(string) == capacity + 1);
     TEST_ASSERT(str_get_length(string) == 0);
     TEST_ASSERT(str_get_flags(string) == (STR_TYPE_STR8 & STR_TYPE_MASK));
