@@ -98,6 +98,7 @@ char str_pop(str self){
     usize index = length == 0 ? 0 : length - 1;
     
     char c = self[length];
+
     self[index] = '\0';
     str_set_length(self, index);
 
