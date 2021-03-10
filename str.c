@@ -3,20 +3,20 @@
 #include "str.h"
 #include "strlib.h"
 
-str str_from(const char *source_string){
-    usize string_length = strlen(source_string);
+str str_from(const char *string){
+    usize string_length = strlen(string);
 
-    str string;
-    if((string = str_with_capacity(string_length)) == NULL){
+    str self;
+    if((self = str_with_capacity(string_length)) == NULL){
         exit(1);
     }
 
-    memcpy(string, source_string, string_length);
+    memcpy(self, string, string_length);
     string[string_length] = '\0';
 
-    str_set_length(string, string_length);
+    str_set_length(self, string_length);
 
-    return string;
+    return self;
 }
 
 str str_with_capacity(usize capacity){
