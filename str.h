@@ -97,7 +97,21 @@ static inline void str_set_length(str string, usize length){
     }
 }
 
-str str_from(const char* source_string);
+void str_clear(str self);
+str str_drain(str self, usize min_index, usize max_index);
+str str_from(const char* string);
+void str_insert(str self, usize index, char c);
+void str_insert_str(str self, usize index, str string);
+int str_is_empty(str self);
+str str_new();
+char str_pop(str self);
+void str_push(str self, char c);
+void str_push_str(str self, str string);
+char str_remove(str self, usize index);
+void str_shrink_to(str self, usize capacity);
+void str_shrink_to_fit(str self);
+str str_split_off(str self, usize at);
+void str_truncate(str self, usize length);
 str str_with_capacity(usize capacity);
 
 void str_free(str string);
