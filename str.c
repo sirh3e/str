@@ -94,15 +94,20 @@ str str_new(const char* string, usize length){
 char str_pop(str self){
     ASSERT(self);
     
-    usize length = str_get_length(self);
-    usize length_new = length == 0 ? 0 : length - 1;
+    usize length_old = str_get_length(self);
+    usize length_new = length_old == 0 ? 0 : length_old - 1;
     
-    char c = self[length];
+    char c = self[length_old];
 
     self[length_new] = '\0';
     str_set_length(self, length_new);
 
     return c;
+}
+
+void str_push(str self, char c){
+    ASSERT(self);
+    //
 }
 
 str str_with_capacity(usize capacity){
