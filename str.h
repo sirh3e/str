@@ -103,7 +103,7 @@ str str_from(const char* string);
 void str_insert(str self, usize index, char c);
 void str_insert_str(str self, usize index, str string);
 int str_is_empty(const str self);
-str str_new();
+str str_new(const char* string, usize length);
 char str_pop(str self);
 void str_push(str self, char c);
 void str_push_str(str self, str string);
