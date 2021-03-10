@@ -15,6 +15,25 @@ bool helper_is_char_boundry(str self, usize index){
     return index <= str_get_length(self);
 }
 
+str str_drain(str self, usize index_min, usize index_max){
+    ASSERT(helper_is_char_boundry(self, index_min));
+    ASSERT(helper_is_char_boundry(self, index_max));
+
+    usize length = index_max - index_min + 1;
+
+    str string;
+    if((string = str_with_capacity(length)) == NULL){
+        ASSERT(string);
+    }
+
+    memcpy(string, self + index_min, length);
+    string[length] = '\0';
+
+    str_set_length(self, length);
+
+    return string;
+}
+
 void str_clear(str self){
     ASSERT(self);
     
