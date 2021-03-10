@@ -50,6 +50,12 @@ void str_insert_str(str self, usize index, str string){
     memcpy(self + index, string, str_get_length(string));
 }
 
+int str_is_empty(const str self){
+    ASSERT(self);
+    
+    return str_get_length(self) == 0;
+}
+
 void str_clear(str self){
     ASSERT(self);
     
