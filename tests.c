@@ -25,5 +25,10 @@ int main(int argc, char** argv){
     TEST_ASSERT(str_get_length(string) == 0);
     TEST_ASSERT(str_get_flags(string) == (STR_TYPE_STR8 & STR_TYPE_MASK));
 
+    str_clear(string);
+    TEST_ASSERT(str_get_capacity(string) == capacity + 1);
+    TEST_ASSERT(str_get_length(string) == 0);
+    TEST_ASSERT(str_get_flags(string) == (STR_TYPE_STR8 & STR_TYPE_MASK));
+
     return 0;
 }
