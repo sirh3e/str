@@ -83,17 +83,11 @@ str str_new(const char* string, usize length){
 str str_from(const char *string){
     ASSERT(string);
     
-    str self;
     usize string_length = strlen(string);
-    if((self = str_with_capacity(string_length)) == NULL){
+    str self;
+    if((self = str_new(string, strin_length)) == NULL){
         ASSERT(self);
     }
-
-    memcpy(self, string, string_length);
-    self[string_length] = '\0';
-
-    str_set_length(self, string_length);
-
     return self;
 }
 
