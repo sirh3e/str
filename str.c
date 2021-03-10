@@ -21,7 +21,7 @@ str str_from(const char *string){
 
 str str_with_capacity(usize capacity){
 
-    str string;
+    str self;
     u8 struct_type = STR_TYPE_STR8;
     usize struct_size = str_get_struct_size(struct_type);
     usize string_size = sizeof(char) * capacity + 1;
@@ -29,14 +29,14 @@ str str_with_capacity(usize capacity){
 
     void *ptr;
     if((ptr = str_malloc(malloc_size)) == NULL){
-        exit(1);
+        exit(1); //ToDo find a better way
     }
 
     memset(ptr, 0, malloc_size);
-    string = (str)ptr+struct_size;
+    self = (str)ptr+struct_size;
 
-    str_set_type(string, struct_type);
-    str_set_capacity(string, string_size);
+    str_set_type(self, struct_type);
+    str_set_capacity(self, string_size);
 
     return string;
 }
