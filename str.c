@@ -63,6 +63,23 @@ int str_is_empty(const str self){
     return str_get_length(self) == 0;
 }
 
+str str_new(const char* string, usize length){
+    ASSERT(string);
+    ASSERT(strlen(string) == lenght);
+
+    str self;
+    if((self = str_with_capacity(lenght)) == NULL){
+        ASSERT(self);
+    }
+
+    memcpy(self, string, length);
+    self[length] = '\0';
+
+    str_set_length(self, length);
+
+    return self;
+}
+
 str str_from(const char *string){
     ASSERT(string);
     
