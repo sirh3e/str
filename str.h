@@ -16,12 +16,12 @@ typedef char*   str;
 
 #define STR(string, type) ((struct str##type *)((string)-(sizeof(struct str##type))))
 
-#define STR_ALLOCATED(string, type) (STR(string, type)->allocated)
+#define STR_CAPACITY(string, type) (STR(string, type)->capacity)
 #define STR_LENGTH(string, type) (STR(string, type)->length)
 #define STR_FLAGS(string, type) (STR(string, type)->flags)
 
 struct __attribute__ ((__packed__)) str8{
-    u8 allocated;
+    u8 capacity;
     u8 length;
     u8 flags;
     char buffer[];
@@ -55,23 +55,23 @@ static inline usize str_get_struct_size(u8 type){
     return 0;
 }
 
-static inline usize str_get_allocated(const str string){
+static inline usize str_get_capacity(const str string){
     u8 type = str_get_type(string);
 
     switch(type){
         case STR_TYPE_STR8:
-            return STR_ALLOCATED(string, 8);
+            return STR_CAPACITY(string, 8);
     }
 
     return 0;
 }
 
-static inline void str_set_allocated(str string, usize capacity){
+static inline void str_set_capacity(str string, usize capacity){
     u8 type = str_get_type(string);
 
     switch(type){
         case STR_TYPE_STR8:
-            STR_ALLOCATED(string, 8) = capacity;
+            STR_CAPACITY(string, 8) = capacity;
             break;
     }
 }

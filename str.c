@@ -36,7 +36,7 @@ str str_with_capacity(usize capacity){
     string = (str)ptr+struct_size;
 
     str_set_type(string, struct_type);
-    str_set_allocated(string, string_size);
+    str_set_capacity(string, string_size);
 
     return string;
 }

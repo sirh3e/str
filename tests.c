@@ -21,7 +21,7 @@ int main(int argc, char** argv){
         exit(1);
     }
     TEST_ASSERT(string != NULL);
-    TEST_ASSERT(str_get_allocated(string) == capacity + 1);
+    TEST_ASSERT(str_get_capacity(string) == capacity + 1);
     TEST_ASSERT(str_get_length(string) == 0);
     TEST_ASSERT(str_get_flags(string) == (STR_TYPE_STR8 & STR_TYPE_MASK));
 
