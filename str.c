@@ -4,26 +4,29 @@
 #include "str.h"
 #include "strlib.h"
 
+#define ASSERT(expression) \
+    assert(expression)
+
 void str_clear(str self){
-    assert(self);
+    ASSERT(self);
     
     memset(self, 0, str_get_length(self));
     str_set_length(self, 0);
 }
 
 int str_is_empty(const str self){
-    assert(self);
+    ASSERT(self);
     
     return str_get_length(self) == 0;
 }
 
 str str_from(const char *string){
-    assert(string);
+    ASSERT(string);
     
     str self;
     usize string_length = strlen(string);
     if((self = str_with_capacity(string_length)) == NULL){
-        assert(self);
+        ASSERT(self);
     }
 
     memcpy(self, string, string_length);
