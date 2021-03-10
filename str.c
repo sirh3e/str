@@ -41,6 +41,15 @@ void str_insert(str self, usize index, char c){
     self[index] = c;
 }
 
+void str_insert_str(str self, usize index, str string){
+    ASSERT(self);
+    ASSERT(helper_is_char_boundry(self, index));
+    ASSERT(string);
+    ASSERT(helper_is_char_boundry(self, index + str_get_length(string)));
+
+    memcpy(self + index, string, str_get_length(string));
+}
+
 void str_clear(str self){
     ASSERT(self);
     
