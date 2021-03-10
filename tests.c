@@ -7,9 +7,10 @@
 
 #define TEST_ASSERT_MESSAGE(expression, message)                                \
             printf("[ %s%s%s ] file: [%s] function: [%s] line: [%d] [%s]\n",    \
-                expression ? STR_TEST_COLOR_GREEN : STR_TEST_COLOR_RED,         \
+                expression ? STR_TEST_COLOR_GREEN : STR_TEST_COLOR_RED,	        \
                 expression ? "PASSED" : "FAILED", STR_TEST_COLOR_REST,          \
-                __FILE__, __func__, __LINE__, message                           \
+                __FILE__, __func__, __LINE__,                                   \
+                message								\
             )
 
 #define TEST_ASSERT(expression) \
