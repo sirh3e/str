@@ -1,26 +1,29 @@
+#include <assert.h>
 #include <string.h>
 
 #include "str.h"
 #include "strlib.h"
 
 void str_clear(str self){
-    //ToDo handle null
+    assert(self);
     
     memset(self, 0, str_get_length(self));
     str_set_length(self, 0);
 }
 
 int str_is_empty(const str self){
-    //ToDo handle null
+    assert(self);
+    
     return str_get_length(self) == 0;
 }
 
 str str_from(const char *string){
-    usize string_length = strlen(string);
-
+    assert(string);
+    
     str self;
+    usize string_length = strlen(string);
     if((self = str_with_capacity(string_length)) == NULL){
-        exit(1);
+        assert(self);
     }
 
     memcpy(self, string, string_length);
