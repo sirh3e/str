@@ -7,6 +7,14 @@
 #define ASSERT(expression) \
     assert(expression)
 
+bool helper_is_char_boundry(str self, usize index);
+
+bool helper_is_char_boundry(str self, usize index){
+    ASSERT(self);
+
+    return index <= str_get_length(self);
+}
+
 void str_clear(str self){
     ASSERT(self);
     
