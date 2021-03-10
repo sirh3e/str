@@ -19,7 +19,7 @@ str str_from(const char *string){
     }
 
     memcpy(self, string, string_length);
-    string[string_length] = '\0';
+    self[string_length] = '\0';
 
     str_set_length(self, string_length);
 
@@ -45,5 +45,5 @@ str str_with_capacity(usize capacity){
     str_set_type(self, struct_type);
     str_set_capacity(self, string_size);
 
-    return string;
+    return self;
 }
