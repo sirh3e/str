@@ -34,6 +34,13 @@ str str_drain(str self, usize index_min, usize index_max){
     return string;
 }
 
+void str_insert(str self, usize index, char c){
+    ASSERT(self);
+    ASSERT(helper_is_char_boundry(self, index));
+
+    self[index] = c;
+}
+
 void str_clear(str self){
     ASSERT(self);
     
