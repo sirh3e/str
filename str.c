@@ -95,10 +95,11 @@ char str_pop(str self){
     ASSERT(self);
     
     usize length = str_get_length(self);
-    char c = self[length];
+    usize index = length == 0 ? 0 : length - 1;
     
-    self[length - 1] = '\0';
-    str_set_length(self, length - 1);
+    char c = self[length];
+    self[index] = '\0';
+    str_set_length(self, index);
 
     return c;
 }
