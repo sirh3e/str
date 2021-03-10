@@ -16,7 +16,7 @@ all:
 	$(CC) $(CFLAGS) $(SRC) -o $(TESTS)
 
 .PHONY: tests
-tests:
+tests: all
 	./$(TESTS)
 
 .PHONY: clean
