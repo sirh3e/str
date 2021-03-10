@@ -65,10 +65,10 @@ int str_is_empty(const str self){
 
 str str_new(const char* string, usize length){
     ASSERT(string);
-    ASSERT(strlen(string) == lenght);
+    ASSERT(strlen(string) == length);
 
     str self;
-    if((self = str_with_capacity(lenght)) == NULL){
+    if((self = str_with_capacity(length)) == NULL){
         ASSERT(self);
     }
 
@@ -83,9 +83,9 @@ str str_new(const char* string, usize length){
 str str_from(const char *string){
     ASSERT(string);
     
-    usize string_length = strlen(string);
     str self;
-    if((self = str_new(string, strin_length)) == NULL){
+    usize string_length = strlen(string);
+    if((self = str_new(string, string_length)) == NULL){
         ASSERT(self);
     }
     return self;
