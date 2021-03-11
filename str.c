@@ -149,6 +149,19 @@ char str_remove(str self, usize index){
     return c;
 }
 
+void str_shrink_to(str self, usize capacity){
+    ASSERT(self);
+    ASSERT(str_get_capacity(self) < capacity);
+
+    if(str_get_capacity(self) == capacity){
+        return;
+    }
+    
+    u8 type = str_get_type(self);
+    usize struct_size = str_get_struct_size(type);
+    usize length = str_get_length(self);
+}
+
 str str_with_capacity(usize capacity){
 
     str self;
