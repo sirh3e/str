@@ -33,5 +33,14 @@ int main(int argc, char** argv){
     TEST_ASSERT(str_get_length(string) == 0);
     TEST_ASSERT(str_get_flags(string) == (STR_TYPE_STR8 & STR_TYPE_MASK));
 
+    //ToDo str_free
+    capacity = 4; 
+    string = str_new("sirh3e", capacity - 1);
+
+    TEST_ASSERT(string);
+    TEST_ASSERT(str_get_capacity(string) == capacity);
+    TEST_ASSERT(str_get_length(string) == 3);
+    TEST_ASSERT(str_get_flags(string) == (STR_TYPE_STR8 & STR_TYPE_MASK));
+
     return 0;
 }
