@@ -9,6 +9,7 @@
 
 void* helper_get_origin_ptr(str self);
 usize helper_get_struct_size(str self);
+usize helper_get_type_from_capacity(usize capacity){
 int helper_is_char_boundry(str self, usize index);
 
 void* helper_get_origin_ptr(str self){
@@ -23,6 +24,11 @@ usize helper_get_struct_size(str self){
 
     u8 type = str_get_type(self);
     return str_get_struct_size(type);
+}
+
+usize helper_get_type_from_capacity(usize capacity){
+    //ToDo check for other types, capacity boundries
+    return STR_TYPE_STR8;
 }
 
 int helper_is_char_boundry(str self, usize index){
@@ -174,6 +180,9 @@ void str_shrink_to(str self, usize capacity){
     usize current_struct_size = helper_get_struct_size(self);
 
     usize shrink_length = current_capacity - capacity;
+
+    usize new_type = helper_get_type_from_capacity(capacity);
+    usize new_struct_size = helper_get_struct_size_from_type(new_type);
     
     if(shrink_length == 0){
         return;
@@ -181,7 +190,7 @@ void str_shrink_to(str self, usize capacity){
     
     void* current_origin_ptr = helper_get_origin_ptr(self);
 
-    self = str_realloc(current_origin_ptr, );
+    self = str_realloc(current_origin_ptr, new_struct_size + capacity);
 }
 
 str str_with_capacity(usize capacity){
