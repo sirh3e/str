@@ -213,7 +213,7 @@ void str_shrink_to(str self, usize capacity){
     ASSERT(self);
     ASSERT(str_get_capacity(self) < capacity);
 
-    usize currnet_capacity = str_get_capacity(self);
+    usize current_capacity = str_get_capacity(self);
     usize current_length = str_get_length(self);
     usize current_struct_size = helper_get_struct_size(self);
 
