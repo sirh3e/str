@@ -190,16 +190,27 @@ void str_shrink_to(str self, usize capacity){
 
     usize shrink_length = current_capacity - capacity;
 
-    usize new_type = helper_get_type_from_capacity(capacity);
-    usize new_struct_size = helper_get_struct_size_from_type(new_type);
-    
     if(shrink_length == 0){
         return;
     }
     
+    u8 new_type = helper_get_type_from_capacity(capacity);
+    usize new_struct_size = helper_get_struct_size_from_type(new_type);
+    usize new_length = current_length < capacity ? current_length : capacity;
+
+    usize delta_struct_size = current_struct_size - new_struct_size;
+
+    memcpy(self - delta_struct_size, self, new_length);
     void* current_origin_ptr = helper_get_origin_ptr(self);
 
-    self = str_realloc(current_origin_ptr, new_struct_size + capacity);
+    if((self = str_realloc(current_origin_ptr, new_struct_size + capacity)) == NULL){
+        ASSERT(self);
+    }
+    self[new_length] = '\0';
+
+    str_set_type(self, new_type);
+    str_set_capacity(self, capacity);
+    str_set_length(self, new_length);
 }
 
 str str_with_capacity(usize capacity){
