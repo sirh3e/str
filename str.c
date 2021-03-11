@@ -9,6 +9,7 @@
 
 void* helper_get_origin_ptr(str self);
 usize helper_get_struct_size(str self);
+usize helper_get_struct_size_from_type(u8 type);
 usize helper_get_type_from_capacity(usize capacity){
 int helper_is_char_boundry(str self, usize index);
 
@@ -24,6 +25,14 @@ usize helper_get_struct_size(str self){
 
     u8 type = str_get_type(self);
     return str_get_struct_size(type);
+}
+
+usize helper_get_struct_size_from_type(u8 type){
+    switch(type & STR_TYPE_MASK){
+        case STR_TYPE_STR8:
+            return sizeof(struct str8);
+    }
+    return 0;
 }
 
 usize helper_get_type_from_capacity(usize capacity){
