@@ -136,7 +136,7 @@ int str_is_empty(const str self){
 
 str str_new(const char* string, usize length){
     ASSERT(string);
-    ASSERT(strlen(string) == length);
+    ASSERT(length <= strlen(string));
 
     str self;
     if((self = str_with_capacity(length)) == NULL){
