@@ -132,6 +132,23 @@ void str_push_str(str self, str string){
     str_set_length(self, length);
 }
 
+char str_remove(str self, usize index){
+    ASSERT(self);
+
+    char c = '\0';
+    usize length = str_get_length(self);
+
+    if(index >= length){
+        return c;
+    }
+
+    c = self[index];
+
+    memcpy(self + index, self + index + 1, length - index);
+
+    return c;
+}
+
 str str_with_capacity(usize capacity){
 
     str self;
