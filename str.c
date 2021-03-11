@@ -8,6 +8,7 @@
     assert(expression)
 
 void* helper_get_origin_ptr(str self);
+usize helper_get_struct_size(str self);
 int helper_is_char_boundry(str self, usize index);
 
 void* helper_get_origin_ptr(str self){
@@ -17,6 +18,13 @@ void* helper_get_origin_ptr(str self){
     usize struct_size = str_get_struct_size(type);
 
     return self - struct_size;
+}
+
+usize helper_get_struct_size(str self){
+    ASSERT(self);
+
+    u8 type = str_get_type(self);
+    return str_get_struct_size(type);
 }
 
 int helper_is_char_boundry(str self, usize index){
