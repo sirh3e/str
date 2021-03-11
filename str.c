@@ -53,6 +53,35 @@ void str_clear(str self){
     str_set_length(self, 0);
 }
 
+str str_copy(str self){
+    ASSERT(self);
+
+    void* origin_ptr = helper_get_origin_ptr(self);
+    u8 flags = str_get_flags(self);
+    u8 type = str_get_type(self);
+    usize capacity = str_get_capacity(self);
+    usize length = str_get_length(self);
+
+    usize struct_size = str_get_struct_size(type);
+
+    void* ptr;
+    if((ptr = malloc(struct_size + capacity)) == NULL){
+        return ptr;
+    }
+
+    str string = NULL;
+    memcpy(ptr, origin_ptr, struct_size + capacity);
+    
+    string = (str)ptr + struct_size;
+    string[length] = '\0';
+
+    str_set_flags(string, flags);
+    str_set_capacity(string, capacity);
+    str_set_length(string, length);
+
+    return string;
+}
+
 str str_drain(str self, usize index_min, usize index_max){
     ASSERT(helper_is_char_boundry(self, index_min));
     ASSERT(helper_is_char_boundry(self, index_max));

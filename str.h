@@ -98,6 +98,7 @@ static inline void str_set_length(str string, usize length){
 }
 
 void str_clear(str self);
+str str_copy(str self);
 str str_drain(str self, usize index_min, usize index_max);
 str str_from(const char* string);
 void str_insert(str self, usize index, char c);
