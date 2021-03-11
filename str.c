@@ -219,6 +219,18 @@ void str_shrink_to_fit(str self){
     str_shrink_to(self, str_get_length(self));
 }
 
+void str_truncate(str self, usize length){
+    ASSERT(self);
+    ASSERT(helper_is_char_boundry(self, length - 1));
+
+    usize current_length = str_get_length(self);
+
+    memset(self, 0, current_length - length);
+    self[length] = '\0';
+
+    str_set_length(self, length);
+}
+
 str str_with_capacity(usize capacity){
 
     str self;
