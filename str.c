@@ -263,7 +263,7 @@ void str_truncate(str self, usize length){
 str str_with_capacity(usize capacity){
     
     str self;
-    capacity = capactiy == 0 ? 1 : capactiy;
+    capacity = capacity == 0 ? 1 : capacity;
     u8 struct_type = STR_TYPE_STR8;
     usize struct_size = str_get_struct_size(struct_type);
     usize string_size = sizeof(char) * capacity;
