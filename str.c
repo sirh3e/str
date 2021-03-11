@@ -7,7 +7,17 @@
 #define ASSERT(expression) \
     assert(expression)
 
+void* helper_get_origin_ptr(str self);
 int helper_is_char_boundry(str self, usize index);
+
+void* helper_get_origin_ptr(str self){
+    ASSERT(self);
+
+    u8 type = str_get_type(self);
+    usize struct_size = str_get_struct_size(type);
+
+    return self - struct_size;
+}
 
 int helper_is_char_boundry(str self, usize index){
     ASSERT(self);
