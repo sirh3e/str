@@ -163,13 +163,19 @@ void str_shrink_to(str self, usize capacity){
     ASSERT(self);
     ASSERT(str_get_capacity(self) < capacity);
 
-    if(str_get_capacity(self) == capacity){
+    usize currnet_capacity = str_get_capacity(self);
+    usize current_length = str_get_length(self);
+    usize current_struct_size = helper_get_struct_size(self);
+
+    usize shrink_length = current_capacity - capacity;
+    
+    if(shrink_length == 0){
         return;
     }
     
-    u8 type = str_get_type(self);
-    usize struct_size = str_get_struct_size(type);
-    usize length = str_get_length(self);
+    void* current_origin_ptr = helper_get_origin_ptr(self);
+
+    self = str_realloc(current_origin_ptr, );
 }
 
 str str_with_capacity(usize capacity){
