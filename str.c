@@ -232,7 +232,7 @@ void str_shrink_to(str self, usize capacity){
     memcpy(self - delta_struct_size, self, new_length);
     void* current_origin_ptr = helper_get_origin_ptr(self);
 
-    if((self = str_realloc(current_origin_ptr, new_struct_size + capacity)) == NULL){
+    if((self = strlib_realloc(current_origin_ptr, new_struct_size + capacity)) == NULL){
         ASSERT(self);
     }
     self[new_length] = '\0';
@@ -269,7 +269,7 @@ str str_with_capacity(usize capacity){
     usize malloc_size = struct_size + string_size;
 
     void *ptr;
-    if((ptr = str_malloc(malloc_size)) == NULL){
+    if((ptr = strlib_malloc(malloc_size)) == NULL){
         exit(1); //ToDo find a better way
     }
 
@@ -292,5 +292,5 @@ void str_free(str string){
         return;
     }
 
-    str_free(ptr);
+    strlib_free(ptr);
 }
