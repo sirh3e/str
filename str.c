@@ -107,7 +107,14 @@ char str_pop(str self){
 
 void str_push(str self, char c){
     ASSERT(self);
-    //
+    //ToDo check for allocated size
+
+    usize length = str_get_length(self);
+    
+    self[length++] = c;
+    self[length] = '\0';
+
+    str_set_length(self, length);
 }
 
 str str_with_capacity(usize capacity){
