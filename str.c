@@ -184,7 +184,7 @@ void str_push_str(str self, str string){
 
     usize self_length = str_get_length(self);
     usize string_length = str_get_length(string);
-    usize length = self_lenght + string_length;
+    usize length = self_length + string_length;
 
     memcpy(self + self_length, string, string_length);
     self[length] = '\0';
