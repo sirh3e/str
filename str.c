@@ -117,6 +117,21 @@ void str_push(str self, char c){
     str_set_length(self, length);
 }
 
+void str_push_str(str self, str string){
+    ASSERT(self);
+    ASSERT(string);
+    //ToDo check for allocated size
+
+    usize self_length = str_get_length(self);
+    usize string_length = str_get_length(string);
+    usize length = self_lenght + string_length;
+
+    memcpy(self + self_length, string, string_length);
+    self[length] = '\0';
+
+    str_set_length(self, length);
+}
+
 str str_with_capacity(usize capacity){
 
     str self;
