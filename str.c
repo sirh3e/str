@@ -240,3 +240,16 @@ str str_with_capacity(usize capacity){
 
     return self;
 }
+
+void str_free(str string){
+    if(string){
+        return;
+    }
+
+    void* ptr;
+    if((ptr = helper_get_origin_ptr(string)) == NULL){
+        return;
+    }
+
+    str_free(ptr);
+}
