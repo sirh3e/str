@@ -213,6 +213,12 @@ void str_shrink_to(str self, usize capacity){
     str_set_length(self, new_length);
 }
 
+void str_shrink_to_fit(str self){
+    ASSERT(self);
+
+    str_shrink_to(self, str_get_length(self));
+}
+
 str str_with_capacity(usize capacity){
 
     str self;
