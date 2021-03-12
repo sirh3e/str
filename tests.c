@@ -18,7 +18,11 @@
 
 #define TEST_ASSERT(expression) \
     assert(expression)
-                
+
+#define TEST_ASSERT_LENGTH_CMP(str1, str2, length)                          \
+    TEST_ASSERT(strncmp(str1, str2, length + 1) == 0);                      \
+    TEST_ASSERT(length == str_get_length(str1) && length == str_get_length(str2))
+
 #define TEST_ASSERT_EQ(left, right) \
     TEST_ASSERT_MESSAGE_EQ(#left, left, #right, right) 
 
@@ -28,6 +32,13 @@
     TEST_ASSERT_EQ(length, str_get_length(string));                 \
     TEST_ASSERT_EQ((type & STR_TYPE_MASK), str_get_flags(string)) 
 
+#define TEST_ASSERT_CMP(str1, str2, length)                                         \
+    TEST_ASSERT(str1);                                                              \
+    TEST_ASSERT(str2);                                                              \
+    TEST(str1, str_get_capacity(str2), str_get_length(str2), str_get_type(str2));   \
+    TEST_ASSERT_LENGTH_CMP(str1, str2, length);                                     \
+    TEST_ASSERT(str_get_flags(str1) == str_get_flags(str2))
+    
 void test_str_clear();
 void test_str_copy();
 
@@ -81,11 +92,7 @@ void test_str_copy(){
 
     str string_copy = str_copy(string);
     TEST(string_copy, capacity, length, STR_TYPE_STR8);
-    assert(strncmp(string, string_copy, length + 1) == 0);
-    assert(str_get_capacity(string) == str_get_capacity(string_copy));
-    assert(str_get_length(string) == str_get_length(string_copy));
-    assert(str_get_type(string) == str_get_type(string_copy));
-    assert(str_get_flags(string) == str_get_flags(string_copy));
+    TEST_ASSERT_CMP(string_copy, string, length);
 
     str_free(string);
     str_free(string_copy);
