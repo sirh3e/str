@@ -139,7 +139,7 @@ str str_new(const char* string, usize length){
     ASSERT(length <= strlen(string));
 
     str self;
-    if((self = str_with_capacity(length)) == NULL){
+    if((self = str_with_capacity(length + 1)) == NULL){
         ASSERT(self);
     }
 
