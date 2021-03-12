@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <string.h>
 #include <stdio.h>
 #include "str.h"
 
@@ -27,7 +28,11 @@
     TEST_ASSERT_EQ(length, str_get_length(string));                 \
     TEST_ASSERT_EQ((type & STR_TYPE_MASK), str_get_flags(string)) 
 
+void test_str_clear();
+
 int main(int argc, char** argv){
+
+    test_str_clear();
 
     usize capacity = 127;
     usize length = 0;
@@ -44,4 +49,21 @@ int main(int argc, char** argv){
     TEST(string, capacity, length, STR_TYPE_STR8);
     
     return 0;
+}
+
+void test_str_clear(){
+    char* name = "sirh3e";
+    usize capacity = 7;
+    usize length = strlen(name);
+
+    str string = str_new(name, length);
+    TEST(string, capacity, length, STR_TYPE_STR8);
+    assert(strncmp(name, string, length + 1) == 0);
+
+    capacity = 7;
+    length = 0;
+    str_clear(string);
+    TEST(string, capacity, length, STR_TYPE_STR8);
+
+    str_free(string);
 }
