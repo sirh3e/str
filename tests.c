@@ -29,10 +29,12 @@
     TEST_ASSERT_EQ((type & STR_TYPE_MASK), str_get_flags(string)) 
 
 void test_str_clear();
+void test_str_copy();
 
 int main(int argc, char** argv){
 
     test_str_clear();
+    test_str_copy();
 
     usize capacity = 127;
     usize length = 0;
@@ -66,4 +68,25 @@ void test_str_clear(){
     TEST(string, capacity, length, STR_TYPE_STR8);
 
     str_free(string);
+}
+
+void test_str_copy(){
+    char* name = "sirh3e";
+    usize length = strlen(name);
+    usize capacity = length + 1;
+
+    str string = str_new(name, length);
+    TEST(string, capacity, length, STR_TYPE_STR8);
+    assert(strncmp(name, string, length + 1) == 0);
+
+    str string_copy = str_copy(string);
+    TEST(string_copy, capacity, length, STR_TYPE_STR8);
+    assert(strncmp(string, string_copy, length + 1) == 0);
+    assert(str_get_capacity(string) == str_get_capacity(string_copy));
+    assert(str_get_length(string) == str_get_length(string_copy));
+    assert(str_get_type(string) == str_get_type(string_copy));
+    assert(str_get_flags(string) == str_get_flags(string_copy));
+
+    str_free(string);
+    str_free(string_copy);
 }
