@@ -41,11 +41,15 @@
     
 void test_str_clear();
 void test_str_copy();
+//ToDo add test_str_drain();
+void test_str_from();
 
 int main(int argc, char** argv){
 
     test_str_clear();
     test_str_copy();
+    //test_str_drain();
+    test_str_from();
 
     return 0;
 }
@@ -82,4 +86,16 @@ void test_str_copy(){
 
     str_free(string);
     str_free(string_copy);
+}
+
+void test_str_from(){
+    char* name = "sirh3e";
+    usize length = strlen(name);
+    usize capacity = length + 1;
+
+    str string = str_from(name);
+    TEST(string, capacity, length, STR_TYPE_STR8);
+    assert(strncmp(name, string, length + 1) == 0);
+
+    str_free(string);
 }
