@@ -47,20 +47,6 @@ int main(int argc, char** argv){
     test_str_clear();
     test_str_copy();
 
-    usize capacity = 127;
-    usize length = 0;
-    
-    str string = str_with_capacity(capacity); 
-    TEST(string, capacity, length, STR_TYPE_STR8);
-    
-    str_clear(string);
-    TEST(string, capacity, length, STR_TYPE_STR8);
-
-    capacity = 4;
-    length = capacity;
-    string = str_new("sirh3e", length);
-    TEST(string, capacity, length, STR_TYPE_STR8);
-    
     return 0;
 }
 
