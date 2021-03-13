@@ -199,3 +199,38 @@ void test_str_is_empty(){
     TEST_ASSERT_EQ(str_is_empty(string), 0);
     str_free(string);
 }
+
+void test_str_new(){
+    char* text = "sirh3e";
+    usize text_length = strlen(text);
+    str string = str_new(text, text_length);
+    TEST_ASSERT(string);
+    TEST_ASSERT_EQ(str_is_empty(string), 0);
+    TEST_ASSERT_EQ(str_get_capacity(string), text_length + 1);
+    TEST_ASSERT_EQ(str_get_length(string), text_length);
+    TEST_ASSERT_EQ(str_get_flags(string), (STR_TYPE_STR8 & STR_TYPE_MASK));
+    TEST_ASSERT_EQ(strncmp(string, text, text_length + 1), 0);
+    str_free(string);
+
+    text = "sir";
+    text_length = strlen(text);
+    string = str_new(string, text_length);
+    TEST_ASSERT(string);
+    TEST_ASSERT_EQ(str_is_empty(string), 0);
+    TEST_ASSERT_EQ(str_get_capacity(string), text_length + 1);
+    TEST_ASSERT_EQ(str_get_length(string), text_length);
+    TEST_ASSERT_EQ(str_get_flags(string), (STR_TYPE_STR8 & STR_TYPE_MASK));
+    TEST_ASSERT_EQ(strncmp(string, text, text_length + 1), 0);
+    str_free(string);
+    
+    text = "abcdefghijklmnopqrstuvwxyz";
+    text_length = strlen(text);
+    string = str_new(text, text_length);
+    TEST_ASSERT(string);
+    TEST_ASSERT_EQ(str_is_empty(string), 0);
+    TEST_ASSERT_EQ(str_get_capacity(string), text_length + 1);
+    TEST_ASSERT_EQ(str_get_length(string), text_length);
+    TEST_ASSERT_EQ(str_get_flags(string), (STR_TYPE_STR8 & STR_TYPE_MASK));
+    TEST_ASSERT_EQ(strncmp(string, text, text_length + 1), 0);
+    str_free(string);
+}
