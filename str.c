@@ -43,7 +43,7 @@ u8 helper_get_type_from_capacity(usize capacity){
 int helper_is_char_boundry(str self, usize index){
     ASSERT(self);
 
-    return index <= str_get_length(self);
+    return index < str_get_capacity(self);
 }
 
 void str_clear(str self){
@@ -116,8 +116,12 @@ void str_insert(str self, usize index, char c){
     ASSERT(self);
     ASSERT(helper_is_char_boundry(self, index));
 
+    usize length = index + 1;
+
     self[index] = c;
-    str_set_length(self, index + 1);
+    self[length] = '\0';
+    
+    str_set_length(self, length);
 }
 
 void str_insert_str(str self, usize index, str string){
