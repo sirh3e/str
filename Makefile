@@ -6,9 +6,7 @@ CFLAGS	+= -pipe
 CFLAGS	+= -fasynchronous-unwind-tables -fexceptions
 CFLAGS	+= -D_FORTIFY_SOURCE=2 
 
-SRCS	:= str.c
-SRCS	+= tests.c
-
+SRCS	:= $(wildcard *.c) 
 OBJS	:= $(SRCS:.c=.o)
 
 TESTS	:= tests
