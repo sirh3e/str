@@ -117,6 +117,7 @@ void str_insert(str self, usize index, char c){
     ASSERT(helper_is_char_boundry(self, index));
 
     self[index] = c;
+    str_set_length(self, index + 1);
 }
 
 void str_insert_str(str self, usize index, str string){
