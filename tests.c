@@ -43,6 +43,7 @@ void test_str_clear();
 void test_str_copy();
 //ToDo add test_str_drain();
 void test_str_from();
+void test_str_insert();
 
 int main(int argc, char** argv){
 
@@ -50,7 +51,8 @@ int main(int argc, char** argv){
     test_str_copy();
     //test_str_drain();
     test_str_from();
-
+    test_str_insert();
+    
     return 0;
 }
 
@@ -96,6 +98,42 @@ void test_str_from(){
     str string = str_from(name);
     TEST(string, capacity, length, STR_TYPE_STR8);
     assert(strncmp(name, string, length + 1) == 0);
+
+    str_free(string);
+}
+
+void test_str_insert(){
+    char* text = "abcdef";
+    usize text_index = 0;
+    usize text_length = strlen(text);
+    usize capacity = text_length + 1;
+
+    str string = str_with_capacity(capacity);
+    TEST(string, capacity, 0, STR_TYPE_STR8);
+
+    //a
+    str_insert(string, text_index, text[text_index++]);
+    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    
+    //b
+    str_insert(string, text_index, text[text_index++]);
+    TEST(string, capacity, text_index, STR_TYPE_STR8);
+
+    //c
+    str_insert(string, text_index, text[text_index++]);
+    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    
+    //d
+    str_insert(string, text_index, text[text_index++]);
+    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    
+    //e
+    str_insert(string, text_index, text[text_index++]);
+    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    
+    //f
+    str_insert(string, text_index, text[text_index++]);
+    TEST(string, capacity, text_index, STR_TYPE_STR8);
 
     str_free(string);
 }
