@@ -44,6 +44,7 @@ void test_str_copy();
 //ToDo add test_str_drain();
 void test_str_from();
 void test_str_insert();
+void test_str_insert_str();
 
 int main(int argc, char** argv){
 
@@ -52,6 +53,7 @@ int main(int argc, char** argv){
     //test_str_drain();
     test_str_from();
     test_str_insert();
+    test_str_insert_str();
     
     return 0;
 }
@@ -104,50 +106,78 @@ void test_str_from(){
 
 void test_str_insert(){
     char* text = "abcdef";
+    str text_string = str_from(text);
     usize text_index = 0;
-    usize text_length = text_index + 1;
+    usize text_length = str_get_length(text_string);
     usize capacity = strlen(text) + 1;
-
-    str string = str_with_capacity(capacity);
-    TEST(string, capacity, 0, STR_TYPE_STR8);
-
+    
+    str string = str_from("zzzzzz");
+    TEST(string, capacity, text_length, STR_TYPE_STR8);
     //a
     str_insert(string, text_index, text[text_index]);
     TEST(string, capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT(strncmp(string, text_string, text_index) == 0);
     text_index += 1;
-    text_length += 1;
     
     //b
     str_insert(string, text_index, text[text_index]);
     TEST(string, capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT(strncmp(string, text_string, text_index) == 0);
     text_index += 1;
-    text_length += 1;
 
     //c
     str_insert(string, text_index, text[text_index]);
     TEST(string, capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT(strncmp(string, text_string, text_index) == 0);
     text_index += 1;
-    text_length += 1;
     
     //d
     str_insert(string, text_index, text[text_index]);
     TEST(string, capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT(strncmp(string, text_string, text_index) == 0);
     text_index += 1;
-    text_length += 1;
     
     //e
     str_insert(string, text_index, text[text_index]);
     TEST(string, capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT(strncmp(string, text_string, text_index) == 0);
     text_index += 1;
-    text_length += 1;
     
     //f
     str_insert(string, text_index, text[text_index]);
     TEST(string, capacity, text_length, STR_TYPE_STR8);
-    text_index += 1;
-    text_length += 1;
+    TEST_ASSERT(strncmp(string, text_string, text_index) == 0);
 
-    assert(strncmp(string, text, capacity) == 0);
-
+    str_free(text_string);
     str_free(string);
+}
+
+void test_str_insert_str(){
+    char* text1 = "abc";
+    usize text1_capacity = strlen(text1) + 1;
+    usize text1_length = text1_capacity - 1;
+   
+    str str1 = str_from(text1);
+    TEST(str1, text1_capacity, text1_length, STR_TYPE_STR8);
+    assert(strncmp(str1, text1, text1_capacity) == 0);
+
+    char* text2 = "def";
+    usize text2_capacity = strlen(text2) + 1;
+    usize text2_length = text2_capacity - 1;
+   
+    str str2 = str_from(text2);
+    TEST(str2, text2_capacity, text2_length, STR_TYPE_STR8);
+    assert(strncmp(str2, text2, text2_capacity) == 0);
+
+    usize text3_capacity = text1_length + text2_length + 1;
+    usize text3_length = text3_capacity - 1;
+
+    str str3 = str_from("zzzzzz");
+    TEST(str3, text3_capacity, text3_length, STR_TYPE_STR8);
+
+    str_insert_str(str3, 0, str2);
+    TEST_ASSERT(strncmp(str3, "defzzz", text3_capacity) == 0);
+    
+    str_insert_str(str3, 3, str1); 
+    TEST_ASSERT(strncmp(str3, "defabc", text3_capacity) == 0);
 }
