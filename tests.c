@@ -233,4 +233,15 @@ void test_str_new(){
     TEST_ASSERT_EQ(str_get_flags(string), (STR_TYPE_STR8 & STR_TYPE_MASK));
     TEST_ASSERT_EQ(strncmp(string, text, text_length + 1), 0);
     str_free(string);
+
+    text = "abcdefghijklmnopqrstuvwxyz";
+    text_length = 0;
+    string = str_new(text, text_length);
+    TEST_ASSERT(string);
+    TEST_ASSERT_EQ(str_is_empty(string), 1);
+    TEST_ASSERT_EQ(str_get_capacity(string), text_length + 1);
+    TEST_ASSERT_EQ(str_get_length(string), text_length);
+    TEST_ASSERT_EQ(str_get_flags(string), (STR_TYPE_STR8 & STR_TYPE_MASK));
+    TEST_ASSERT_EQ(string[0], '\0');
+    str_free(string);
 }
