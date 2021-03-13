@@ -43,7 +43,7 @@ u8 helper_get_type_from_capacity(usize capacity){
 int helper_is_char_boundry(str self, usize index){
     ASSERT(self);
 
-    return index < str_get_capacity(self);
+    return index < str_get_capacity(self) && index <= str_get_length(self);
 }
 
 void str_clear(str self){
