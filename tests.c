@@ -105,35 +105,49 @@ void test_str_from(){
 void test_str_insert(){
     char* text = "abcdef";
     usize text_index = 0;
-    usize text_length = strlen(text);
-    usize capacity = text_length + 1;
+    usize text_length = text_index + 1;
+    usize capacity = strlen(text) + 1;
 
     str string = str_with_capacity(capacity);
     TEST(string, capacity, 0, STR_TYPE_STR8);
 
     //a
-    str_insert(string, text_index, text[text_index++]);
-    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    str_insert(string, text_index, text[text_index]);
+    TEST(string, capacity, text_length, STR_TYPE_STR8);
+    text_index += 1;
+    text_length += 1;
     
     //b
-    str_insert(string, text_index, text[text_index++]);
-    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    str_insert(string, text_index, text[text_index]);
+    TEST(string, capacity, text_length, STR_TYPE_STR8);
+    text_index += 1;
+    text_length += 1;
 
     //c
-    str_insert(string, text_index, text[text_index++]);
-    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    str_insert(string, text_index, text[text_index]);
+    TEST(string, capacity, text_length, STR_TYPE_STR8);
+    text_index += 1;
+    text_length += 1;
     
     //d
-    str_insert(string, text_index, text[text_index++]);
-    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    str_insert(string, text_index, text[text_index]);
+    TEST(string, capacity, text_length, STR_TYPE_STR8);
+    text_index += 1;
+    text_length += 1;
     
     //e
-    str_insert(string, text_index, text[text_index++]);
-    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    str_insert(string, text_index, text[text_index]);
+    TEST(string, capacity, text_length, STR_TYPE_STR8);
+    text_index += 1;
+    text_length += 1;
     
     //f
-    str_insert(string, text_index, text[text_index++]);
-    TEST(string, capacity, text_index, STR_TYPE_STR8);
+    str_insert(string, text_index, text[text_index]);
+    TEST(string, capacity, text_length, STR_TYPE_STR8);
+    text_index += 1;
+    text_length += 1;
+
+    assert(strncmp(string, text, capacity) == 0);
 
     str_free(string);
 }
