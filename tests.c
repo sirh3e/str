@@ -45,6 +45,8 @@ void test_str_copy();
 void test_str_from();
 void test_str_insert();
 void test_str_insert_str();
+void test_str_is_empty();
+void test_str_new();
 
 int main(int argc, char** argv){
 
@@ -54,6 +56,8 @@ int main(int argc, char** argv){
     test_str_from();
     test_str_insert();
     test_str_insert_str();
+    test_str_is_empty();
+    test_str_new();
     
     return 0;
 }
@@ -180,4 +184,18 @@ void test_str_insert_str(){
     
     str_insert_str(str3, 3, str1); 
     TEST_ASSERT(strncmp(str3, "defabc", text3_capacity) == 0);
+}
+
+void test_str_is_empty(){
+    str string = NULL;
+
+    string = str_with_capacity(16);
+    TEST_ASSERT(string);
+    TEST_ASSERT_EQ(str_is_empty(string), 1);
+    str_free(string);
+   
+    string = str_from("sirh3e");
+    TEST_ASSERT(string);
+    TEST_ASSERT_EQ(str_is_empty(string), 0);
+    str_free(string);
 }
