@@ -26,5 +26,4 @@ $(TESTS): $(OBJS)
 
 .PHONY: clean
 clean:
-	rm -fv $(OBJS)
-	rm -fv $(TESTS)
+	rm -fv $(TESTS) $(OBJS)
