@@ -157,9 +157,9 @@ char str_pop(str self){
     usize length_old = str_get_length(self);
     usize length_new = length_old == 0 ? 0 : length_old - 1;
     
-    char c = self[length_old];
-
+    char c = self[length_new];
     self[length_new] = '\0';
+    
     str_set_length(self, length_new);
 
     return c;
