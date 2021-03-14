@@ -19,18 +19,22 @@
 #define TEST_ASSERT(expression) \
     assert(expression)
 
-#define TEST_ASSERT_LENGTH_CMP(str1, str2, length)                          \
-    TEST_ASSERT(strncmp(str1, str2, length + 1) == 0);                      \
-    TEST_ASSERT(length == str_get_length(str1) && length == str_get_length(str2))
-
-#define TEST_ASSERT_EQ(left, right) \
+#define TEST_ASSERT_EQ(left, right)                     \
     TEST_ASSERT_MESSAGE_EQ(#left, left, #right, right) 
 
-#define TEST(string, capacity, length, type)                        \
+#define TEST_ASSERT_STRING_EQ(str1, str2, length)       \
+    TEST_ASSERT_EQ(strncmp(str1, str2, length + 1), 0)
+
+#define TEST_ASSERT_LENGTH_CMP(str1, str2, length)                                      \
+    TEST_ASSERT_STRING_EQ(str1, str2, length);                                          \
+    TEST_ASSERT_EQ((length == str_get_length(str1)), (length == str_get_length(str2)))
+
+#define TEST(string, capacity, length, flags)                       \
     TEST_ASSERT(string);                                            \
     TEST_ASSERT_EQ(capacity, str_get_capacity(string));             \
     TEST_ASSERT_EQ(length, str_get_length(string));                 \
-    TEST_ASSERT_EQ((type & STR_TYPE_MASK), str_get_flags(string)) 
+    TEST_ASSERT_EQ(flags, str_get_flags(string));                   \
+    TEST_ASSERT_EQ((flags & STR_TYPE_MASK), str_get_type(string))
 
 #define TEST_ASSERT_CMP(str1, str2, length)                                         \
     TEST_ASSERT(str1);                                                              \
@@ -47,6 +51,8 @@ void test_str_insert();
 void test_str_insert_str();
 void test_str_is_empty();
 void test_str_new();
+void test_str_pop();
+void test_str_push();
 
 int main(int argc, char** argv){
 
@@ -58,6 +64,8 @@ int main(int argc, char** argv){
     test_str_insert_str();
     test_str_is_empty();
     test_str_new();
+    test_str_pop();
+    test_str_push();
     
     return 0;
 }
@@ -244,4 +252,110 @@ void test_str_new(){
     TEST_ASSERT_EQ(str_get_flags(string), (STR_TYPE_STR8 & STR_TYPE_MASK));
     TEST_ASSERT_EQ(string[0], '\0');
     str_free(string);
+}
+
+void test_str_pop(){
+    char c;
+    char* text = "sirh3e";
+    usize text_length = strlen(text);
+    usize text_capacity = text_length + 1;
+    
+    str string = str_from(text);
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+
+    //e
+    c = str_pop(string);
+    text_length -= 1;
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, 'e');
+    
+    //3
+    c = str_pop(string);
+    text_length -= 1;
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, '3');
+
+    //h
+    c = str_pop(string);
+    text_length -= 1;
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, 'h');
+    
+    //r
+    c = str_pop(string);
+    text_length -= 1;
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, 'r');
+    
+    //i
+    c = str_pop(string);
+    text_length -= 1;
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, 'i');
+
+    //s
+    c = str_pop(string);
+    text_length -= 1;
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, 's');
+    
+    //\0
+    c = str_pop(string);
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, '\0');
+    
+    //\0
+    c = str_pop(string);
+    TEST(string, text_capacity, text_length, STR_TYPE_STR8);
+    TEST_ASSERT_EQ(c, '\0');
+}
+
+void test_str_push(){
+    char* name = NULL;
+    usize string_capacity = 16;
+    usize string_length = 0;
+    str string = str_with_capacity(string_capacity);
+
+    TEST(string, string_capacity, string_length, STR_TYPE_STR8);
+    //s
+    name = "s";
+    str_push(string, 's');
+    string_length += 1;
+    TEST(string, string_capacity, string_length, STR_TYPE_STR8);
+    TEST_ASSERT_STRING_EQ(string, name, string_length); 
+
+    //i
+    name = "si";
+    str_push(string, 'i');
+    string_length += 1;
+    TEST(string, string_capacity, string_length, STR_TYPE_STR8);
+    TEST_ASSERT_STRING_EQ(string, name, string_length); 
+   
+    //r
+    name = "sir";
+    str_push(string, 'r');
+    string_length += 1;
+    TEST(string, string_capacity, string_length, STR_TYPE_STR8);
+    TEST_ASSERT_STRING_EQ(string, name, string_length); 
+    
+    //h
+    name = "sirh";
+    str_push(string, 'h');
+    string_length += 1;
+    TEST(string, string_capacity, string_length, STR_TYPE_STR8);
+    TEST_ASSERT_STRING_EQ(string, name, string_length); 
+    
+    //3
+    name = "sirh3";
+    str_push(string, '3');
+    string_length += 1;
+    TEST(string, string_capacity, string_length, STR_TYPE_STR8);
+    TEST_ASSERT_STRING_EQ(string, name, string_length); 
+    
+    //e
+    name = "sirh3e";
+    str_push(string, 'e');
+    string_length += 1;
+    TEST(string, string_capacity, string_length, STR_TYPE_STR8);
+    TEST_ASSERT_STRING_EQ(string, name, string_length); 
 }
