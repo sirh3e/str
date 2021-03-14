@@ -171,8 +171,8 @@ void str_push(str self, char c){
 
     usize length = str_get_length(self);
     
-    self[length++] = c;
-    self[length] = '\0';
+    self[length] = c;
+    self[++length] = '\0';
 
     str_set_length(self, length);
 }
