@@ -248,6 +248,22 @@ void str_shrink_to_fit(str self){
     str_shrink_to(self, str_get_length(self));
 }
 
+str str_split_off(str self, usize at){
+    ASSERT(self);
+    ASSERT(helper_is_char_boundry(self, at));
+
+    str other = str_from(self + at);
+    if(other == NULL){
+        return NULL;
+    }
+
+    usize length = at + 1;
+    str_set_length(self, length);
+    self[length] = '\0';
+
+    return other;
+}
+
 void str_truncate(str self, usize length){
     ASSERT(self);
     ASSERT(helper_is_char_boundry(self, length - 1));
