@@ -53,6 +53,7 @@ void test_str_is_empty();
 void test_str_new();
 void test_str_pop();
 void test_str_push();
+void test_str_push_str();
 
 int main(int argc, char** argv){
 
@@ -66,6 +67,7 @@ int main(int argc, char** argv){
     test_str_new();
     test_str_pop();
     test_str_push();
+    test_str_push_str();
     
     return 0;
 }
@@ -358,4 +360,19 @@ void test_str_push(){
     string_length += 1;
     TEST(string, string_capacity, string_length, STR_TYPE_STR8);
     TEST_ASSERT_STRING_EQ(string, name, string_length); 
+}
+
+void test_str_push_str(){
+    str foo = str_from("foo");
+    usize foo_capacity = 4;
+    usize foo_length = 3;
+
+    TEST(foo, foo_capacity, foo_length, STR_TYPE_STR8);
+
+    str bar = str_from("bar");
+    str_push_str(foo, bar);
+
+    char* foobar = "foobar";
+    usize foobar_length = strlen(foobar);
+    TEST_ASSERT_STRING_EQ(foo, foobar, foobar_length);
 }
