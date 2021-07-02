@@ -24,6 +24,10 @@ $(TESTS): $(OBJS)
 	@echo $(CC) $(CFLAGS) -c $< -o $@
 	$(CC) $(CFLAGS) -c $< -o $@
 
+.PHONY: format
+format:
+	clang-format -i $(SRCS)
+
 .PHONY: clean
 clean:
 	rm -fv $(TESTS) $(OBJS)
